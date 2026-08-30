@@ -1,14 +1,179 @@
 # Property Intelligence & Geolocation Pipeline
 
-A Python pipeline that consolidates real-estate listings scraped from
-multiple portals, normalizes heterogeneous data, resolves conflicts
-between sources, and turns everything into a clean, geocoded,
-map-ready dataset.
+*[Read this in English ↓](#english)*
 
-> **This repository uses exclusively fictional or anonymized data.**
-> The datasets used in the operational environment are not part of
-> this public version — see [`docs/PRIVACY_AUDIT.md`](docs/PRIVACY_AUDIT.md)
-> for the audit performed before publishing.
+Un pipeline en Python que consolida publicaciones inmobiliarias
+scrapeadas de múltiples portales, normaliza datos heterogéneos,
+resuelve conflictos entre fuentes y lo convierte todo en un dataset
+geocodificado, limpio y listo para mapear.
+
+> **Este repositorio usa exclusivamente datos ficticios o anonimizados.**
+> Los datasets usados en el entorno operativo no forman parte de esta
+> versión pública — ver [`docs/PRIVACY_AUDIT.md`](docs/PRIVACY_AUDIT.md)
+> con la auditoría realizada antes de publicar.
+
+## Problema
+
+Los portales inmobiliarios exponen el mismo tipo de información
+(precio, ambientes, superficie, dirección, amenities) en formatos
+completamente distintos: algunos vía `schema.org` JSON-LD limpio,
+otros vía blobs de estado propios del framework (ej. un `TransferState`
+de Angular embebido en un `<script>`), otros solo como texto libre en
+la descripción. Consolidar publicaciones de varios portales en un
+único dataset confiable y consultable implica resolver tres problemas
+a la vez: **extracción** (por portal), **normalización** (un solo
+esquema para todos) y **confianza** (qué pasa cuando dos fuentes se
+contradicen).
+
+## Pipeline
+
+```
+URLs
+  │
+  ▼
+Web Scraping                     requests → Playwright solo si hace falta
+  │                               nunca intenta evadir CAPTCHA/login/anti-bot
+  ▼
+Extracción de datos estructurados  JSON-LD, meta OpenGraph, estado propio del
+  │                               portal (ej. TransferState de Angular), breadcrumb schema.org
+  ▼
+Normalización de propiedad        tipo, precio, ambientes, superficie, antigüedad, amenities
+  │
+  ▼
+Normalización de dirección        calle/número/localidad/partido/provincia,
+  │                               detección de conflicto entre dato estructurado y texto libre
+  ▼
+Validación de calidad de datos    sanity checks, detección de página genérica, flags de revisión
+  │
+  ▼
+Geocodificación                   coordenadas del sitio si son confiables, si no Nominatim
+  │                               (OpenStreetMap) en 4 niveles decrecientes de precisión
+  ▼
+QA geoespacial                    rechaza coordenadas fuera de la provincia esperada,
+  │                               nunca confía en un resultado solo porque el geocoder devolvió HTTP 200
+  ▼
+Mapa interactivo / GeoJSON / KML / CSV
+```
+
+## Destacado técnico
+
+- **Python** de punta a punta.
+- **Web scraping / RPA**: `requests` + `BeautifulSoup` primero,
+  **Playwright** solo como fallback para páginas renderizadas con JS —
+  nunca se usa para vencer detección anti-bot, solo para renderizar
+  contenido normal del lado del cliente.
+- **Extracción de datos estructurados**: JSON-LD/OpenGraph genérico de
+  `schema.org`, más dos extractores específicos por portal, hechos por
+  ingeniería inversa sobre páginas reales: uno que lee el blob de
+  estado embebido de un framework (mucho más rico que su JSON-LD
+  público), y otro que lee un bloque `BreadcrumbList` para
+  categoría/localidad.
+- **pandas** / **openpyxl** para I/O tabular.
+- **Geocodificación con OpenStreetMap / Nominatim** con fallback de 4
+  niveles (dirección exacta → aproximación por cuadra → solo calle →
+  solo localidad) y validación geográfica dura (bounding box + chequeo
+  de provincia esperada) — un `200 OK` del geocoder nunca se trata como
+  prueba de que el resultado es correcto.
+- **Mapa interactivo con Folium**, clustering de marcadores, color por
+  tipo de propiedad, y un estilo visualmente distinto por nivel de
+  precisión de dirección.
+- **Exports GeoJSON / KML / CSV** para reutilizar en otras herramientas GIS.
+- **Cache en disco + checkpoints JSON**: cada corrida reanuda donde
+  quedó; una URL fallida nunca aborta el batch completo.
+- **Tests automatizados** (pytest) que cubren casos límite de
+  normalización, detección de conflictos y manejo de negaciones en
+  texto libre.
+- **Trazabilidad por diseño**: cada campo derivado lleva su propia
+  etiqueta `_fuente`/`_source`, así siempre se puede saber si un valor
+  fue extraído, inferido o geocodificado — y de cuál de dos fuentes en
+  conflicto salió.
+
+## Principio de diseño: dato faltante > dato incorrecto
+
+El pipeline nunca inventa un valor que no esté explícito en la fuente.
+Si una altura no se puede confirmar, queda en `null` — no se redondea,
+no se adivina, no se completa con `0` por default. Cuando dos fuentes
+se contradicen (ej. el campo estructurado del sitio dice una altura y
+la descripción en texto libre dice otra), **se preservan ambas** como
+campos separados y el registro queda marcado para revisión manual en
+vez de elegir una a ciegas.
+
+## Calidad de datos
+
+**`address_precision`** — cuánto de la dirección se conoce realmente:
+
+| Valor | Significado |
+|---|---|
+| `EXACT_ADDRESS` | Calle + altura confirmadas, con contexto de localidad/provincia |
+| `BLOCK_APPROXIMATION` | Solo se conoce la altura aproximada a nivel de cuadra |
+| `STREET_ONLY` | Calle identificada, sin altura utilizable |
+| `LOCALITY_ONLY` | Solo localidad/partido/provincia, sin calle |
+| `UNKNOWN` | No hay datos suficientes para ubicarla geográficamente |
+
+Un punto `LOCALITY_ONLY` nunca se dibuja en el mapa como si fuera la
+puerta exacta de una propiedad — ver la leyenda de precisión y el
+estilo de marcadores en [`src/maps/map_config.py`](src/maps/map_config.py).
+
+**`scrape_status`** — qué pasó realmente al intentar traer una publicación:
+
+| Valor | Significado |
+|---|---|
+| `SUCCESS` | Publicación real, se extrajeron datos utilizables |
+| `PARTIAL` | Se pudo acceder, pero no se extrajo ni precio ni una dirección real |
+| `GENERIC_PAGE` | Terminó en la página institucional/de inicio de la inmobiliaria, no en una ficha real |
+| `BLOCKED` | Se detectó un desafío anti-bot/CAPTCHA — nunca se intenta evadir, solo se registra |
+| `NOT_FOUND` | HTTP 404 |
+| `ERROR` | Falla inesperada (red, parseo) — se loguea, el batch continúa |
+
+## Estructura
+
+```
+src/
+    scraper/          fetch + extractores por dominio + armado de registro
+    normalization/     normalización de propiedad y dirección
+    geocoding/         cliente Nominatim + validadores geográficos
+    maps/              constructor de mapa con Folium
+    export/            GeoJSON / KML / CSV
+    utils/             I/O de Excel, cache en disco, checkpoints, logging
+tests/
+examples/
+    build_demo_map.py       regenera todo lo de abajo a partir de datos sintéticos
+    propiedades_demo.csv
+    propiedades_demo.geojson
+    propiedades_demo.kml
+    mapa_demo.html
+docs/
+    PRIVACY_AUDIT.md
+main.py
+requirements.txt
+```
+
+## Correr la demo
+
+```bash
+pip install -r requirements.txt
+python -m pytest tests/ -q
+
+python examples/build_demo_map.py   # regenera examples/mapa_demo.html y los exports
+```
+
+`main.py` expone el CLI completo que se usa en la versión operativa
+(`audit | pilot | scrape | geocode | map | export | enrich_excel | all`),
+incluido acá para mostrar la arquitectura real y reproducible — espera
+una planilla de entrada privada que intencionalmente no está incluida
+en este repositorio. La demo autocontenida y ejecutable es
+`examples/build_demo_map.py`.
+
+## Licencia
+
+MIT — ver [`LICENSE`](LICENSE).
+
+---
+
+<a id="english"></a>
+# Property Intelligence & Geolocation Pipeline
+
+*[Leer en español ↑](#property-intelligence--geolocation-pipeline)*
 
 ## Problem
 
