@@ -1,0 +1,9 @@
+url,fuente,titulo_publicacion,tipo_propiedad_normalizado,calle,numero,localidad,partido,provincia,address_precision,precio,moneda,expensas,ambientes,superficie_total_m2,apto_credito_final,comentario_personal,scrape_status,needs_manual_review,latitude,longitude
+https://demo.example.com/propiedad/1,Portal Demo A,Casa 3 ambientes con patio — DEMO,CASA,Calle Demo,123,Localidad Ejemplo,Partido Ejemplo,Provincia Ficticia,EXACT_ADDRESS,120000,USD,,3,90,True,Ejemplo de comentario del usuario,SUCCESS,False,-41.1,-71.3
+https://demo.example.com/propiedad/2,Portal Demo B,PH 2 ambientes reciclado — DEMO,PH,Avenida Ejemplo,456,Localidad Ejemplo,Partido Ejemplo,Provincia Ficticia,BLOCK_APPROXIMATION,85000,USD,15000,2,55,,,SUCCESS,False,-41.105,-71.305
+https://demo.example.com/propiedad/3,Portal Demo A,Departamento 1 ambiente — DEMO,DEPARTAMENTO,Pasaje Ficticio,,Localidad Ejemplo,Partido Ejemplo,Provincia Ficticia,STREET_ONLY,45000,USD,0,1,30,False,Propiedad de demostración,SUCCESS,False,-41.11,-71.31
+https://demo.example.com/propiedad/4,Portal Demo C,,OTRO,,,Localidad Ejemplo,Partido Ejemplo,Provincia Ficticia,LOCALITY_ONLY,,,,,,,,PARTIAL,True,-41.115,-71.315
+https://demo.example.com/propiedad/5,Portal Demo B,Casa a reciclar con conflicto de altura — DEMO,CASA,Calle Demo,900,Localidad Ejemplo,Partido Ejemplo,Provincia Ficticia,BLOCK_APPROXIMATION,98000,USD,,3,110,True,Ejemplo anonimizado,SUCCESS,True,-41.12,-71.32
+https://demo.example.com/propiedad/6,Portal Demo A,Portal Demo A — Institucional,OTRO,,,,,,UNKNOWN,,,,,,,,GENERIC_PAGE,True,,
+https://demo.example.com/propiedad/7,Portal Demo C,,OTRO,,,,,,UNKNOWN,,,,,,,,BLOCKED,True,,
+https://demo.example.com/propiedad/8,Portal Demo B,,OTRO,,,,,,UNKNOWN,,,,,,,,NOT_FOUND,True,,

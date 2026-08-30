@@ -1,0 +1,130 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.3,
+          -41.1
+        ]
+      },
+      "properties": {
+        "tipo": "CASA",
+        "tipo_original": "Casa",
+        "calle": "Calle Demo",
+        "numero": "123",
+        "localidad": "Localidad Ejemplo",
+        "partido": "Partido Ejemplo",
+        "provincia": "Provincia Ficticia",
+        "precio": 120000,
+        "moneda": "USD",
+        "expensas": null,
+        "comentario_personal": "Ejemplo de comentario del usuario",
+        "address_precision": "EXACT_ADDRESS",
+        "url": "https://demo.example.com/propiedad/1"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.305,
+          -41.105
+        ]
+      },
+      "properties": {
+        "tipo": "PH",
+        "tipo_original": "PH",
+        "calle": "Avenida Ejemplo",
+        "numero": "456",
+        "localidad": "Localidad Ejemplo",
+        "partido": "Partido Ejemplo",
+        "provincia": "Provincia Ficticia",
+        "precio": 85000,
+        "moneda": "USD",
+        "expensas": 15000,
+        "comentario_personal": null,
+        "address_precision": "BLOCK_APPROXIMATION",
+        "url": "https://demo.example.com/propiedad/2"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.31,
+          -41.11
+        ]
+      },
+      "properties": {
+        "tipo": "DEPARTAMENTO",
+        "tipo_original": "Departamento",
+        "calle": "Pasaje Ficticio",
+        "numero": null,
+        "localidad": "Localidad Ejemplo",
+        "partido": "Partido Ejemplo",
+        "provincia": "Provincia Ficticia",
+        "precio": 45000,
+        "moneda": "USD",
+        "expensas": 0,
+        "comentario_personal": "Propiedad de demostración",
+        "address_precision": "STREET_ONLY",
+        "url": "https://demo.example.com/propiedad/3"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.315,
+          -41.115
+        ]
+      },
+      "properties": {
+        "tipo": "OTRO",
+        "tipo_original": null,
+        "calle": null,
+        "numero": null,
+        "localidad": "Localidad Ejemplo",
+        "partido": "Partido Ejemplo",
+        "provincia": "Provincia Ficticia",
+        "precio": null,
+        "moneda": null,
+        "expensas": null,
+        "comentario_personal": null,
+        "address_precision": "LOCALITY_ONLY",
+        "url": "https://demo.example.com/propiedad/4"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -71.32,
+          -41.12
+        ]
+      },
+      "properties": {
+        "tipo": "CASA",
+        "tipo_original": "Casa",
+        "calle": "Calle Demo",
+        "numero": "900",
+        "localidad": "Localidad Ejemplo",
+        "partido": "Partido Ejemplo",
+        "provincia": "Provincia Ficticia",
+        "precio": 98000,
+        "moneda": "USD",
+        "expensas": null,
+        "comentario_personal": "Ejemplo anonimizado",
+        "address_precision": "BLOCK_APPROXIMATION",
+        "url": "https://demo.example.com/propiedad/5"
+      }
+    }
+  ]
+}

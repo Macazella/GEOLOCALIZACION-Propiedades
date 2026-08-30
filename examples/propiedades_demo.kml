@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2">
+<Document>
+  <name>Propiedades Geolocalizadas</name>
+  <Placemark>
+    <name>Casa 3 ambientes con patio — DEMO</name>
+    <description>Tipo: Casa
+Direccion: Calle Demo 123
+Localidad: Localidad Ejemplo / Partido: Partido Ejemplo
+Precio: USD 120000
+Precision geografica: EXACT_ADDRESS
+URL: https://demo.example.com/propiedad/1
+Comentario personal: Ejemplo de comentario del usuario</description>
+    <Point><coordinates>-71.3,-41.1,0</coordinates></Point>
+  </Placemark><Placemark>
+    <name>PH 2 ambientes reciclado — DEMO</name>
+    <description>Tipo: PH
+Direccion: Avenida Ejemplo 456
+Localidad: Localidad Ejemplo / Partido: Partido Ejemplo
+Precio: USD 85000
+Precision geografica: BLOCK_APPROXIMATION
+URL: https://demo.example.com/propiedad/2</description>
+    <Point><coordinates>-71.305,-41.105,0</coordinates></Point>
+  </Placemark><Placemark>
+    <name>Departamento 1 ambiente — DEMO</name>
+    <description>Tipo: Departamento
+Direccion: Pasaje Ficticio
+Localidad: Localidad Ejemplo / Partido: Partido Ejemplo
+Precio: USD 45000
+Precision geografica: STREET_ONLY
+URL: https://demo.example.com/propiedad/3
+Comentario personal: Propiedad de demostración</description>
+    <Point><coordinates>-71.31,-41.11,0</coordinates></Point>
+  </Placemark><Placemark>
+    <name>Propiedad</name>
+    <description>Tipo: -
+Direccion:
+Localidad: Localidad Ejemplo / Partido: Partido Ejemplo
+Precio:  No informado
+Precision geografica: LOCALITY_ONLY
+URL: https://demo.example.com/propiedad/4</description>
+    <Point><coordinates>-71.315,-41.115,0</coordinates></Point>
+  </Placemark><Placemark>
+    <name>Casa a reciclar con conflicto de altura — DEMO</name>
+    <description>Tipo: Casa
+Direccion: Calle Demo 900
+Localidad: Localidad Ejemplo / Partido: Partido Ejemplo
+Precio: USD 98000
+Precision geografica: BLOCK_APPROXIMATION
+URL: https://demo.example.com/propiedad/5
+Comentario personal: Ejemplo anonimizado</description>
+    <Point><coordinates>-71.32,-41.12,0</coordinates></Point>
+  </Placemark>
+</Document>
+</kml>

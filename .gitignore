@@ -1,0 +1,34 @@
+# --- Secretos ---
+.env
+.env.*
+!.env.example
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+*.egg-info/
+
+# --- Entornos virtuales ---
+.venv/
+venv/
+env/
+
+# --- Cualquier dato real que se llegara a usar localmente para probar
+#     contra un caso propio no debe subirse jamás — solo examples/ ---
+data/
+cache/
+checkpoints/
+logs/
+output/
+*.xlsx
+*.xls
+!examples/**/*.csv
+!examples/**/*.geojson
+!examples/**/*.kml
+!examples/**/*.html
+
+# --- Sistema operativo ---
+Thumbs.db
+.DS_Store

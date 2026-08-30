@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_29f867681fb620a9042b45962289ca05 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.1.0/leaflet.markercluster.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.1.0/MarkerCluster.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.1.0/MarkerCluster.Default.css"/>
+</head>
+<body>
+    
+    
+    <div style="position: fixed; bottom: 30px; left: 10px; z-index: 9999;
+                background: white; padding: 10px; border: 1px solid #999;
+                border-radius: 6px; font-family: Arial; font-size: 12px;">
+        <strong>Precisión geográfica</strong><br>
+        ● Opacidad plena = dirección exacta<br>
+        ○ Círculo punteado = aproximado (cuadra/calle/localidad)<br>
+        Verde = Casa · Naranja = PH · Azul = Depto · Gris = Otro
+    </div>
+    
+    
+            <div class="folium-map" id="map_29f867681fb620a9042b45962289ca05" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_29f867681fb620a9042b45962289ca05 = L.map(
+                "map_29f867681fb620a9042b45962289ca05",
+                {
+                    center: [-41.11, -71.31],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 12,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_e2090341ee76eca8cc0fb055aeaaf47f = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_e2090341ee76eca8cc0fb055aeaaf47f.addTo(map_29f867681fb620a9042b45962289ca05);
+        
+    
+            var feature_group_1ad2bd8ba8cc29401463e3cc9342cc0c = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var marker_cluster_153af852502a99bcc3fdc094a1a630be = L.markerClusterGroup(
+                {
+}
+            );
+        
+    
+            var marker_522097e75b4c04c59a1d842ece55f50b = L.marker(
+                [-41.1, -71.3],
+                {
+  "opacity": 1.0,
+}
+            ).addTo(marker_cluster_153af852502a99bcc3fdc094a1a630be);
+        
+    
+            var icon_3888a88ce6a790ece97b882ec8dd813c = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_6f02124f3fd408088dc07968ec2125ac = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_a051f77494e16649949ca3ed298ebfc5 = $(`<div id="html_a051f77494e16649949ca3ed298ebfc5" style="width: 100.0%; height: 100.0%;">     <div style="max-width:280px; font-family: Arial, sans-serif; font-size: 13px;">         <p><strong>Tipo:</strong> Casa</p>         <p><strong>Título:</strong> Casa 3 ambientes con patio — DEMO</p>         <p><strong>Dirección:</strong> Calle Demo 123</p>         <p><strong>Localidad/Barrio:</strong> Localidad Ejemplo</p>         <p><strong>Partido:</strong> Partido Ejemplo</p>         <p><strong>Provincia:</strong> Provincia Ficticia</p>         <p><strong>Precio:</strong> USD 120.000</p>         <p><strong>Expensas:</strong> Sin datos</p>         <p><strong>Ambientes:</strong> 3</p>         <p><strong>Superficie:</strong> 90 m2</p>         <p><strong>Apto crédito:</strong> Sí</p>         <p><strong>Comentario de Maga:</strong><br>"Ejemplo de comentario del usuario"</p>         <p><strong>Inmobiliaria:</strong> Portal Demo A</p>         <p><strong>Precisión geográfica:</strong> Dirección exacta</p>         <p><a href="https://demo.example.com/propiedad/1" target="_blank" rel="noopener">VER PUBLICACIÓN →</a></p>     </div>     </div>`)[0];
+                popup_6f02124f3fd408088dc07968ec2125ac.setContent(html_a051f77494e16649949ca3ed298ebfc5);
+            
+        
+
+        marker_522097e75b4c04c59a1d842ece55f50b.bindPopup(popup_6f02124f3fd408088dc07968ec2125ac)
+        ;
+
+        
+    
+    
+            marker_522097e75b4c04c59a1d842ece55f50b.bindTooltip(
+                `<div>
+                     Casa 3 ambientes con patio — DEMO
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_522097e75b4c04c59a1d842ece55f50b.setIcon(icon_3888a88ce6a790ece97b882ec8dd813c);
+            
+    
+            var marker_080ab599fae8bf5bc9427d0f1301675a = L.marker(
+                [-41.12, -71.32],
+                {
+  "opacity": 0.75,
+}
+            ).addTo(marker_cluster_153af852502a99bcc3fdc094a1a630be);
+        
+    
+            var icon_e83d4bccd88ff3081ca330e8adadcc81 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "home",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_a46fceda1bc38b1e303514aa4619f63c = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_6e3f6ca579d529cbf25fc441595f4bf8 = $(`<div id="html_6e3f6ca579d529cbf25fc441595f4bf8" style="width: 100.0%; height: 100.0%;">     <div style="max-width:280px; font-family: Arial, sans-serif; font-size: 13px;">         <p><strong>Tipo:</strong> Casa</p>         <p><strong>Título:</strong> Casa a reciclar con conflicto de altura — DEMO</p>         <p><strong>Dirección:</strong> Calle Demo 900</p>         <p><strong>Localidad/Barrio:</strong> Localidad Ejemplo</p>         <p><strong>Partido:</strong> Partido Ejemplo</p>         <p><strong>Provincia:</strong> Provincia Ficticia</p>         <p><strong>Precio:</strong> USD 98.000</p>         <p><strong>Expensas:</strong> Sin datos</p>         <p><strong>Ambientes:</strong> 3</p>         <p><strong>Superficie:</strong> 110 m2</p>         <p><strong>Apto crédito:</strong> Sí (⚠ dato en conflicto entre sitio y texto — ver revisión manual)</p>         <p><strong>Comentario de Maga:</strong><br>"Ejemplo anonimizado"</p>         <p><strong>Inmobiliaria:</strong> Portal Demo B</p>         <p><strong>Precisión geográfica:</strong> Aproximado (altura de cuadra)</p>         <p><a href="https://demo.example.com/propiedad/5" target="_blank" rel="noopener">VER PUBLICACIÓN →</a></p>     </div>     </div>`)[0];
+                popup_a46fceda1bc38b1e303514aa4619f63c.setContent(html_6e3f6ca579d529cbf25fc441595f4bf8);
+            
+        
+
+        marker_080ab599fae8bf5bc9427d0f1301675a.bindPopup(popup_a46fceda1bc38b1e303514aa4619f63c)
+        ;
+
+        
+    
+    
+            marker_080ab599fae8bf5bc9427d0f1301675a.bindTooltip(
+                `<div>
+                     Casa a reciclar con conflicto de altura — DEMO
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_080ab599fae8bf5bc9427d0f1301675a.setIcon(icon_e83d4bccd88ff3081ca330e8adadcc81);
+            
+    
+            var circle_8ba5fee292033e4326bd78df90252344 = L.circle(
+                [-41.12, -71.32],
+                {"bubblingMouseEvents": true, "color": "green", "dashArray": "5", "dashOffset": null, "fill": true, "fillColor": "green", "fillOpacity": 0.08, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 150, "stroke": true, "weight": 1}
+            ).addTo(marker_cluster_153af852502a99bcc3fdc094a1a630be);
+        
+    
+            marker_cluster_153af852502a99bcc3fdc094a1a630be.addTo(feature_group_1ad2bd8ba8cc29401463e3cc9342cc0c);
+        
+    
+            feature_group_1ad2bd8ba8cc29401463e3cc9342cc0c.addTo(map_29f867681fb620a9042b45962289ca05);
+        
+    
+            var feature_group_0e860827b70ee79de9242e4ec34a9490 = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var marker_cluster_1e5c1ad5522e8d13fb4fb1f4504b0639 = L.markerClusterGroup(
+                {
+}
+            );
+        
+    
+            var marker_35093a50551c44ddc7bb91b32c21d548 = L.marker(
+                [-41.105, -71.305],
+                {
+  "opacity": 0.75,
+}
+            ).addTo(marker_cluster_1e5c1ad5522e8d13fb4fb1f4504b0639);
+        
+    
+            var icon_e9d5672a6215f98703708217da79d09b = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "orange",
+  "iconColor": "white",
+  "icon": "building",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_f195aceccffbcd6657c350f6d5fea209 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_590b25648b7fe1d96a1b9dfe7a70f3ff = $(`<div id="html_590b25648b7fe1d96a1b9dfe7a70f3ff" style="width: 100.0%; height: 100.0%;">     <div style="max-width:280px; font-family: Arial, sans-serif; font-size: 13px;">         <p><strong>Tipo:</strong> PH</p>         <p><strong>Título:</strong> PH 2 ambientes reciclado — DEMO</p>         <p><strong>Dirección:</strong> Avenida Ejemplo 456</p>         <p><strong>Localidad/Barrio:</strong> Localidad Ejemplo</p>         <p><strong>Partido:</strong> Partido Ejemplo</p>         <p><strong>Provincia:</strong> Provincia Ficticia</p>         <p><strong>Precio:</strong> USD 85.000</p>         <p><strong>Expensas:</strong> 15000</p>         <p><strong>Ambientes:</strong> 2</p>         <p><strong>Superficie:</strong> 55 m2</p>         <p><strong>Apto crédito:</strong> No informado</p>                  <p><strong>Inmobiliaria:</strong> Portal Demo B</p>         <p><strong>Precisión geográfica:</strong> Aproximado (altura de cuadra)</p>         <p><a href="https://demo.example.com/propiedad/2" target="_blank" rel="noopener">VER PUBLICACIÓN →</a></p>     </div>     </div>`)[0];
+                popup_f195aceccffbcd6657c350f6d5fea209.setContent(html_590b25648b7fe1d96a1b9dfe7a70f3ff);
+            
+        
+
+        marker_35093a50551c44ddc7bb91b32c21d548.bindPopup(popup_f195aceccffbcd6657c350f6d5fea209)
+        ;
+
+        
+    
+    
+            marker_35093a50551c44ddc7bb91b32c21d548.bindTooltip(
+                `<div>
+                     PH 2 ambientes reciclado — DEMO
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_35093a50551c44ddc7bb91b32c21d548.setIcon(icon_e9d5672a6215f98703708217da79d09b);
+            
+    
+            var circle_91554939dbe8b5c14072e050d8dd8cef = L.circle(
+                [-41.105, -71.305],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": "5", "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.08, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 150, "stroke": true, "weight": 1}
+            ).addTo(marker_cluster_1e5c1ad5522e8d13fb4fb1f4504b0639);
+        
+    
+            marker_cluster_1e5c1ad5522e8d13fb4fb1f4504b0639.addTo(feature_group_0e860827b70ee79de9242e4ec34a9490);
+        
+    
+            feature_group_0e860827b70ee79de9242e4ec34a9490.addTo(map_29f867681fb620a9042b45962289ca05);
+        
+    
+            var feature_group_6f33ddfb1d73372268723bd5ec2711d0 = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var marker_cluster_268533b6380c707511e8e545a77a79d2 = L.markerClusterGroup(
+                {
+}
+            );
+        
+    
+            var marker_986ccb380e725e04d619e4b0f9f4f76a = L.marker(
+                [-41.11, -71.31],
+                {
+  "opacity": 0.6,
+}
+            ).addTo(marker_cluster_268533b6380c707511e8e545a77a79d2);
+        
+    
+            var icon_1b1a18ab6cecc53f60b3b707d3f94aa2 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "building",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_654f32375c5da0ca2ef6e7e162a0dbda = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_e503bddae1f09c8f21a6c43389877b0e = $(`<div id="html_e503bddae1f09c8f21a6c43389877b0e" style="width: 100.0%; height: 100.0%;">     <div style="max-width:280px; font-family: Arial, sans-serif; font-size: 13px;">         <p><strong>Tipo:</strong> Departamento</p>         <p><strong>Título:</strong> Departamento 1 ambiente — DEMO</p>         <p><strong>Dirección:</strong> Pasaje Ficticio </p>         <p><strong>Localidad/Barrio:</strong> Localidad Ejemplo</p>         <p><strong>Partido:</strong> Partido Ejemplo</p>         <p><strong>Provincia:</strong> Provincia Ficticia</p>         <p><strong>Precio:</strong> USD 45.000</p>         <p><strong>Expensas:</strong> Sin datos</p>         <p><strong>Ambientes:</strong> 1</p>         <p><strong>Superficie:</strong> 30 m2</p>         <p><strong>Apto crédito:</strong> No</p>         <p><strong>Comentario de Maga:</strong><br>"Propiedad de demostración"</p>         <p><strong>Inmobiliaria:</strong> Portal Demo A</p>         <p><strong>Precisión geográfica:</strong> Solo calle, sin altura</p>         <p><a href="https://demo.example.com/propiedad/3" target="_blank" rel="noopener">VER PUBLICACIÓN →</a></p>     </div>     </div>`)[0];
+                popup_654f32375c5da0ca2ef6e7e162a0dbda.setContent(html_e503bddae1f09c8f21a6c43389877b0e);
+            
+        
+
+        marker_986ccb380e725e04d619e4b0f9f4f76a.bindPopup(popup_654f32375c5da0ca2ef6e7e162a0dbda)
+        ;
+
+        
+    
+    
+            marker_986ccb380e725e04d619e4b0f9f4f76a.bindTooltip(
+                `<div>
+                     Departamento 1 ambiente — DEMO
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_986ccb380e725e04d619e4b0f9f4f76a.setIcon(icon_1b1a18ab6cecc53f60b3b707d3f94aa2);
+            
+    
+            var circle_d95faa1a8fbefaec2c3692a15e14f448 = L.circle(
+                [-41.11, -71.31],
+                {"bubblingMouseEvents": true, "color": "blue", "dashArray": "5", "dashOffset": null, "fill": true, "fillColor": "blue", "fillOpacity": 0.08, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 300, "stroke": true, "weight": 1}
+            ).addTo(marker_cluster_268533b6380c707511e8e545a77a79d2);
+        
+    
+            marker_cluster_268533b6380c707511e8e545a77a79d2.addTo(feature_group_6f33ddfb1d73372268723bd5ec2711d0);
+        
+    
+            feature_group_6f33ddfb1d73372268723bd5ec2711d0.addTo(map_29f867681fb620a9042b45962289ca05);
+        
+    
+            var feature_group_608c6aebcef57d646fa57e742e205310 = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var marker_cluster_9ea5c380b69147722a6f4ffc6e2b4abf = L.markerClusterGroup(
+                {
+}
+            );
+        
+    
+            var marker_a7f6ea38d5ba11a21d6488e11b38f0c8 = L.marker(
+                [-41.115, -71.315],
+                {
+  "opacity": 0.4,
+}
+            ).addTo(marker_cluster_9ea5c380b69147722a6f4ffc6e2b4abf);
+        
+    
+            var icon_d3c7f03280d8a923de24496c587c698c = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "gray",
+  "iconColor": "white",
+  "icon": "question",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_937385c2d04091ff0de18d2674219568 = L.popup({
+  "maxWidth": 320,
+});
+
+        
+            
+                var html_e0e6cf03a003333f328ba2eed2e4bf15 = $(`<div id="html_e0e6cf03a003333f328ba2eed2e4bf15" style="width: 100.0%; height: 100.0%;">     <div style="max-width:280px; font-family: Arial, sans-serif; font-size: 13px;">         <p><strong>Tipo:</strong> OTRO</p>         <p><strong>Título:</strong> -</p>         <p><strong>Dirección:</strong> - </p>         <p><strong>Localidad/Barrio:</strong> Localidad Ejemplo</p>         <p><strong>Partido:</strong> Partido Ejemplo</p>         <p><strong>Provincia:</strong> Provincia Ficticia</p>         <p><strong>Precio:</strong> No informado</p>         <p><strong>Expensas:</strong> Sin datos</p>         <p><strong>Ambientes:</strong> No informado</p>         <p><strong>Superficie:</strong> No informado</p>         <p><strong>Apto crédito:</strong> No informado</p>                  <p><strong>Inmobiliaria:</strong> Portal Demo C</p>         <p><strong>Precisión geográfica:</strong> Solo localidad/barrio</p>         <p><a href="https://demo.example.com/propiedad/4" target="_blank" rel="noopener">VER PUBLICACIÓN →</a></p>     </div>     </div>`)[0];
+                popup_937385c2d04091ff0de18d2674219568.setContent(html_e0e6cf03a003333f328ba2eed2e4bf15);
+            
+        
+
+        marker_a7f6ea38d5ba11a21d6488e11b38f0c8.bindPopup(popup_937385c2d04091ff0de18d2674219568)
+        ;
+
+        
+    
+    
+            marker_a7f6ea38d5ba11a21d6488e11b38f0c8.bindTooltip(
+                `<div>
+                     https://demo.example.com/propiedad/4
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_a7f6ea38d5ba11a21d6488e11b38f0c8.setIcon(icon_d3c7f03280d8a923de24496c587c698c);
+            
+    
+            var circle_ddc12f42e63b181436de9fd41194bdf0 = L.circle(
+                [-41.115, -71.315],
+                {"bubblingMouseEvents": true, "color": "gray", "dashArray": "5", "dashOffset": null, "fill": true, "fillColor": "gray", "fillOpacity": 0.08, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 800, "stroke": true, "weight": 1}
+            ).addTo(marker_cluster_9ea5c380b69147722a6f4ffc6e2b4abf);
+        
+    
+            marker_cluster_9ea5c380b69147722a6f4ffc6e2b4abf.addTo(feature_group_608c6aebcef57d646fa57e742e205310);
+        
+    
+            feature_group_608c6aebcef57d646fa57e742e205310.addTo(map_29f867681fb620a9042b45962289ca05);
+        
+    
+            var layer_control_e6e9ba2bd75dfc7fcfd1a3e9301e12dc_layers = {
+                base_layers : {
+                    "openstreetmap" : tile_layer_e2090341ee76eca8cc0fb055aeaaf47f,
+                },
+                overlays :  {
+                    "Tipo: CASA" : feature_group_1ad2bd8ba8cc29401463e3cc9342cc0c,
+                    "Tipo: PH" : feature_group_0e860827b70ee79de9242e4ec34a9490,
+                    "Tipo: DEPARTAMENTO" : feature_group_6f33ddfb1d73372268723bd5ec2711d0,
+                    "Tipo: OTRO" : feature_group_608c6aebcef57d646fa57e742e205310,
+                },
+            };
+            let layer_control_e6e9ba2bd75dfc7fcfd1a3e9301e12dc = L.control.layers(
+                layer_control_e6e9ba2bd75dfc7fcfd1a3e9301e12dc_layers.base_layers,
+                layer_control_e6e9ba2bd75dfc7fcfd1a3e9301e12dc_layers.overlays,
+                {
+  "position": "topright",
+  "collapsed": false,
+  "autoZIndex": true,
+}
+            ).addTo(map_29f867681fb620a9042b45962289ca05);
+
+        
+</script>
+</html>
